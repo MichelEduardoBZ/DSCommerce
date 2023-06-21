@@ -3,7 +3,7 @@ package com.michel.dscommerce.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -14,6 +14,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -28,6 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private static final String[] ADMIN = { "/users/**" };
 
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenStore(tokenStore);
@@ -41,11 +43,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             http.headers().frameOptions().disable();
         }
 
-        http.authorizeRequests()
-                .antMatchers(PUBLIC).permitAll()
-                .antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll()
-                .antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN")
-                .antMatchers(ADMIN).hasRole("ADMIN")
-                .anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().permitAll();
     }
 }
