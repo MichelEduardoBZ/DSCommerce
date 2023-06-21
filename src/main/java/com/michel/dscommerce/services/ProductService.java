@@ -1,7 +1,9 @@
 package com.michel.dscommerce.services;
 
+import com.michel.dscommerce.dto.CategoryDTO;
 import com.michel.dscommerce.dto.ProductDTO;
 import com.michel.dscommerce.dto.ProductMinDTO;
+import com.michel.dscommerce.entities.Category;
 import com.michel.dscommerce.entities.Product;
 import com.michel.dscommerce.repositories.ProductRepository;
 import com.michel.dscommerce.services.exceptions.DatabaseException;
@@ -66,14 +68,17 @@ public class ProductService {
         }
     }
 
-
     private void copyDtoToEntity(ProductDTO dto, Product entity) {
 
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
-
+        entity.getCategories().clear();
+        for (CategoryDTO catDTO : dto.getCategories()){
+            Category cat = new Category();
+            cat.setId(catDTO.getId());
+            entity.getCategories().add(cat);
+        }
     }
-
 }
