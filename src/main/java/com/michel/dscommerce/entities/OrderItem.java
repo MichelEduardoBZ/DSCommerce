@@ -54,4 +54,12 @@ public class OrderItem {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    public OrderItemPK getId() {
+        return id;
+    }
+
+    public void setId(OrderItemPK id) {
+        this.id = id;
+    }
 }

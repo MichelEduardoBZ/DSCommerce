@@ -23,7 +23,7 @@ public class Order {
     private Payment payment;
 
     @OneToMany(mappedBy = "id.order")
-    private Set<OrderItem> item = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order(){}
 
@@ -75,11 +75,21 @@ public class Order {
         this.payment = payment;
     }
 
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<OrderItem> items) {
+        this.items = items;
+    }
+
     public Set<OrderItem> getItem() {
-        return item;
+        return items;
     }
 
     public List<Product> getProducts() {
-        return item.stream().map(x -> x.getProduct()).toList();
+        return items.stream().map(x -> x.getProduct()).toList();
     }
+
+
 }
