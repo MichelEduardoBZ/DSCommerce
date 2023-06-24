@@ -2,6 +2,7 @@ package com.michel.dscommerce.controllers;
 
 import com.michel.dscommerce.dto.CategoryDTO;
 import com.michel.dscommerce.services.CategoryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categories")
+@SecurityRequirement(name = "bearer-key")
 public class CategoryController {
 
     @Autowired

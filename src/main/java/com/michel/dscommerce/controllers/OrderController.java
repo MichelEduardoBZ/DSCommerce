@@ -2,6 +2,7 @@ package com.michel.dscommerce.controllers;
 
 import com.michel.dscommerce.dto.OrderDTO;
 import com.michel.dscommerce.services.OrderService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +14,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/orders")
+@SecurityRequirement(name = "bearer-key")
 public class OrderController {
 
     @Autowired
